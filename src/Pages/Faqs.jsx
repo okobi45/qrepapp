@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function Faqs() {
     return (
@@ -18,8 +17,8 @@ export default function Faqs() {
                             </summary>
                             <div className="px-4 pb-4">
                                 <p>
-                                    To report a crime or an emergency, open the QREP Crime ReportSystem app and navigate to the "Report"
-                                    or "Emergency" section. Follow the prompts to provide essential information about the incident,
+                                    To report a crime or an emergency, open the QREP Crime ReportSystem app and navigate to the Report
+                                    or Emergency section. Follow the prompts to provide essential information about the incident,
                                     such as location, description, and any other relevant details. Your report will be submitted to
                                     the appropriate authorities for action.
                                 </p>
@@ -41,14 +40,14 @@ export default function Faqs() {
                         </details>
                         <details>
                             <summary className="py-2 outline-none cursor-pointer focus:underline">
-                                What should I do if I've submitted a false report accidentally or with incorrect information?
+                                What should I do if I have submitted a false report accidentally or with incorrect information?
                             </summary>
                             <div className="px-4 pb-4 space-y-2">
                                 <p>
-                                    If you've submitted a report with inaccurate information,
+                                    If you have submitted a report with inaccurate information,
                                     please contact our support team as soon as possible.
                                     We understand that mistakes can happen, and
-                                    it's crucial to rectify them promptly.
+                                    it is crucial to rectify them promptly.
                                 </p>
                                 <p>
                                     We will assist you in updating or correcting the report to ensure the accuracy of
