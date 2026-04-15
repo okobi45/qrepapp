@@ -48,7 +48,7 @@ function Home() {
                             Report an Incident
                             <span aria-hidden="true" className="text-blue-200">→</span>
                         </Link>
-                        <Link to="https://qrep.inretia.online"
+                        <Link to="/login"
                             className="inline-block rounded-lg px-12 py-1.5 text-base font-semibold leading-7 text-gray-700 hover:text-blue-500 dark:text-gray-600 ring-1 ring-gray-700 hover:ring-blue-700">
                             Login
                             <span aria-hidden="true" className="text-gray-400">→</span>

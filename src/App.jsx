@@ -6,6 +6,7 @@ import {
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import IncidentForm from './Pages/IncidentForm';
+import Login from './Pages/Login';
 import Home from './Pages/Home'
 import Error from './Pages/Error'
 import Contact from './Pages/Contact'
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/incident",
     element: <IncidentForm />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/tos",
