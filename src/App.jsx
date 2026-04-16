@@ -6,6 +6,7 @@ import {
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import IncidentForm from './Pages/IncidentForm';
+import ReporterDash from './Pages/ReporterDash';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Home from './Pages/Home'
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/incident",
     element: <IncidentForm />,
+  },
+  {
+    path: "/rdashboard",
+    element: <ReporterDash />,
   },
   {
     path: "/login",
