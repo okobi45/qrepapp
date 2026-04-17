@@ -5,9 +5,9 @@ const ReporterDash = () => {
 
     const [activeTab, setActiveTab] = useState('reports');
     const [reports, setReports] = useState([
-        { id: 1, dateSubmitted: "2026-04-10", crimeType: "theft", county: "dublin", incidentDate: "2026-04-09", status: "Pending" },
-        { id: 2, dateSubmitted: "2026-04-11", crimeType: "assault", county: "cork", incidentDate: "2026-04-10", status: "Under Review" },
-        { id: 3, dateSubmitted: "2026-04-12", crimeType: "vandalism", county: "limerick", incidentDate: "2026-04-11", status: "Resolved" },
+        { id: 1, crimeType: "theft", incidentDate: "2026-04-09", county: "dublin", locationDesc: "opposite train station", incidentDesc: "wallet stolen from back pocket while boarding the bus", dateSubmitted: "2026-04-10", status: "Pending" },
+        { id: 2, crimeType: "assault", incidentDate: "2026-04-10", county: "cork", locationDesc: "near second gate", incidentDesc: "Old lady push off the sidewalk during rush hour morning", dateSubmitted: "2026-04-10", status: "Under Review" },
+        { id: 3, crimeType: "vandalism", incidentDate: "2026-04-11", county: "limerick", locationDesc: "main street car park", incidentDesc: "Graffiti sprayed on the wall and street light smashed", dateSubmitted: "2026-04-10", status: "Resolved" },
     ]);
 
     const statusColor = (status) => {
@@ -61,8 +61,10 @@ const ReporterDash = () => {
                                         <tr>
                                             <th className="px-4 py-3">Date submitted</th>
                                             <th className="px-4 py-3">Crime Type</th>
-                                            <th className="px-4 py-3">County</th>
                                             <th className="px-4 py-3">Date of Incident</th>
+                                            <th className="px-4 py-3">County</th>
+                                            <th className="px-4 py-3">Location</th>
+                                            <th className="px-4 py-3">Incident Description</th>
                                             <th className="px-4 py-3">Status</th>
                                         </tr>
                                     </thead>
@@ -71,8 +73,10 @@ const ReporterDash = () => {
                                             <tr key={report.id} className="border-b">
                                                 <td className="px-4 py-3">{report.dateSubmitted}</td>
                                                 <td className="px-4 py-3">{report.crimeType}</td>
-                                                <td className="px-4 py-3">{report.county}</td>
                                                 <td className="px-4 py-3">{report.incidentDate}</td>
+                                                <td className="px-4 py-3">{report.county}</td>
+                                                <td className="px-4 py-3">{report.locationDesc}</td>
+                                                <td className="px-4 py-3">{report.incidentDesc}</td>
                                                 <td>
                                                     <span className={`rounded-full px-3 py-1 text-xs font-medium ${statusColor(report.status)}`}>
                                                         {report.status}
