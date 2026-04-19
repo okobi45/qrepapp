@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import IncidentForm from './Pages/IncidentForm';
 import ReporterDash from './Pages/ReporterDash';
+import AdminDash from './Pages/AdminDash';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Home from './Pages/Home'
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/rdashboard",
     element: <ReporterDash />,
+  },
+  {
+    path: "/adminpanel",
+    element: <AdminDash />,
   },
   {
     path: "/login",

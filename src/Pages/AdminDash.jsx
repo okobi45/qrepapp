@@ -60,20 +60,30 @@ function AdminDash() {
     })
 
     return (
-        <div>
-            <div>
+        <div className="bg-gray-50 min-h-screen">
+            <div className="mx-auto max-w-screen-xl px-4 py-8 md:px-8 md:py-12">
 
-                <div>
-                    <h1>Admin Dashboard</h1>
-                    <p>Manage all Reports and User accounts</p>
+                <div className="mb-10 text-center">
+                    <h1 className="mb-2 text-2xl font-bold text-gray-800 md:text-3xl">Admin Dashboard</h1>
+                    <p className="text-gray-500 md:text-lg">Manage all Reports and User accounts</p>
                 </div>
 
-                <div>
-                    <nav>
-                        <button onClick={() => setActiveTab("reports")}>
+                <div className="mb-6 border-b border-gray-200">
+                    <nav className="flex justify-center space-x-8">
+                        <button onClick={() => setActiveTab("reports")}
+                            className={
+                                `py-3 px-1 text-sm font-medium border-b-2 transition duration-100 md:text-base ${activeTab === "reports"
+                                    ? "border-blue-600 text-blue-600"
+                                    : "border-transparent text-gray-500 hover:text-gray-700"}`
+                            }>
                             Reports
                         </button>
-                        <button onClick={() => setActiveTab("users")}>
+                        <button onClick={() => setActiveTab("users")}
+                            className={
+                                `py-3 px-1 text-sm font-medium border-b-2 transition duration-100 md:text-base ${activeTab === "users"
+                                    ? "border-blue-600 text-blue-600"
+                                    : "border-transparent text-gray-500 hover:text-gray-700"}`
+                            }>
                             User
                         </button>
                     </nav>
@@ -83,10 +93,10 @@ function AdminDash() {
                 <div className="bg-white rounded-lg shadow">
 
                     {activeTab === "reports" && (
-                        <div>
+                        <div className="p-6 md:p-8">
                             <h2 className="mb-4 text-lg font-semibold text-gray-800 md:text-xl">All Reports</h2>
 
-                            <div>
+                            <div className="mb-4 flex flex-col gap-4 sm:flex-row">
                                 <input
                                     type="text"
                                     value={search}
@@ -97,7 +107,7 @@ function AdminDash() {
                                 <select
                                     value={filter}
                                     onChange={(e) => setFilter(e.target.value)}
-                                    className=""
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                                 >
                                     <option value="All">All statuses</option>
                                     <option value="Pending">Pending</option>
@@ -107,10 +117,18 @@ function AdminDash() {
                             </div>
 
                             <div className="overflow-x-auto">
-                                <table>
-                                    <thead>
+                                <table className="w-full text-left text-sm text-gray-700">
+                                    <thead className="bg-gray-50 text-xs uppercase text-gray-600">
                                         <tr>
-                                            <th>Reporter</th>
+                                            <th className="px-4 py-3">Reporter</th>
+                                            <th className="px-4 py-3">Crime Type</th>
+                                            <th className="px-4 py-3">Date of Incident</th>
+                                            <th className="px-4 py-3">County</th>
+                                            <th className="px-4 py-3">Location</th>
+                                            <th className="px-4 py-3">Incident Description</th>
+                                            <th className="px-4 py-3">Date submitted</th>
+                                            <th className="px-4 py-3">Status</th>
+                                            <th className="px-4 py-3">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -119,11 +137,15 @@ function AdminDash() {
                                                 <td>{report.reporter}</td>
                                                 <td>{report.crimeType}</td>
                                                 <td>{report.incidentDate}</td>
+                                                <td>{report.county}</td>
+                                                <td>{report.locationDesc}</td>
+                                                <td>{report.incidentDesc}</td>
+                                                <td>{report.dateSubmitted}</td>
                                                 <td>
                                                     <select
                                                         value={report.status}
                                                         onChange={(e) => handleStatusChange(report.id, e.target.value)}
-                                                        className=""
+                                                        className={`rounded-full px-3 py-1 text-xs font-medium border-0 ${statusColor(report.status)}`}
                                                     >
                                                         <option value="Pending">Pending</option>
                                                         <option value="Under Review">Under Review</option>
@@ -131,7 +153,8 @@ function AdminDash() {
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <button onClick={() => handleDeleteReport(report.id)}>
+                                                    <button onClick={() => handleDeleteReport(report.id)}
+                                                        className="rounded bg-red-100 px-3 py-1 text-xs font-medium text-red-800 hover:bg-red-200">
                                                         Delete
                                                     </button>
                                                 </td>
@@ -149,12 +172,12 @@ function AdminDash() {
 
                     {
                         activeTab === "users" && (
-                            <div>
-                                <h2>Users</h2>
+                            <div className="p-6 md:p-8">
+                                <h2 className="mb-4 text-lg font-semibold text-gray-800 md:text-xl">Users</h2>
 
-                                <form onSubmit={handleAddUser}>
-                                    <h3>Add New User</h3>
-                                    <div>
+                                <form onSubmit={handleAddUser} className="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+                                    <h3 className="mb-3 text-sm font-medium text-gray-800">Add New User</h3>
+                                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                                         <input
                                             type="text"
                                             value={newUser.name}
@@ -194,40 +217,41 @@ function AdminDash() {
                                     </div>
                                 </form>
 
-                                <div>
-                                    <table>
-                                        <thead>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-sm text-gray-700">
+                                        <thead className="bg-gray-50 text-xs uppercase text-gray-600">
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                                <th>Actions</th>
+                                                <th className="px-4 py-3">Name</th>
+                                                <th className="px-4 py-3">Email</th>
+                                                <th className="px-4 py-3">Role</th>
+                                                <th className="px-4 py-3">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
                                                 users.map((user) => (
                                                     <tr key={user.id} className="border-b">
-                                                        <td>{user.name}</td>
-                                                        <td>{user.email}</td>
-                                                        <td>{user.role}</td>
-                                                        <td>
-                                                            <button onClick={() => handleDeleteUser(user.id)}>
+                                                        <td className="px-4 py-3">{user.name}</td>
+                                                        <td className="px-4 py-3">{user.email}</td>
+                                                        <td className="px-4 py-3">
+                                                            <span className={`rounded-full px-3 py-1 text-xs font-medium ${user.role === "Admin" ? "bg-purple-100 text-purple-800" : "bg-gray-100 text-gray-800"}`}>
+                                                                {user.role}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-4 py-3">
+                                                            <button onClick={() => handleDeleteUser(user.id)}
+                                                                className="rounded bg-red-100 px-3 py-1 text-xs font-medium text-red-800 hover:bg-red-200">
                                                                 Delete
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                ))
-                                            }
+                                                ))}
                                         </tbody>
                                     </table>
                                 </div>
-                                )
-                    }
                             </div>
-
-
-            </div>
+                        )}
+                </div>
             </div>
 
         </div>
