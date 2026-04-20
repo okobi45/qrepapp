@@ -2,21 +2,21 @@ import { Link } from "react-router-dom"
 
 function Home() {
     return (
-        <div className="h-screen/80 border-blue-800 light:bg-gray-800">
+        <div className="min-h-[80vh] border-blue-800 light:bg-gray-800">
             <div className="dark:bg-transparent">
                 <div className="mx-auto flex flex-col items-center py-12 sm:py-24">
                     <div className="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col mb-5 sm:mb-10">
                         <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl text-center text-gray-800 dark:text-dark font-black leading-10">
-                            <span>QREP Crime Report</span>
+                            <span>SWR(Secure Web Report)</span>
                             <span className="text-blue-800 dark:text-blue-700 mx-3">
                                 System
                             </span>
                         </h1>
                         <p className="mt-5 sm:mt-10 lg:w-10/12 text-gray-600 dark:text-gray-500 font-normal text-center text-xl">
-                            Empowering Communities, Ensuring Safety: Reporting Crime, Building Peace
+                            A verified, community managed reporting platform | Building a High trust Community and Soiety one at a time.
                         </p>
                     </div>
-                    <div className="flex w-11/12 md:w-8/12 xl:w-6/12">
+                    {/* <div className="flex w-11/12 md:w-8/12 xl:w-6/12">
                         <div className="flex rounded-md w-full">
                             <input
                                 type="text"
@@ -41,7 +41,7 @@ function Home() {
                                 </svg>
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="mt-10 flex gap-x-4 sm:justify-center">
                         <Link to="/incident"
                             className="inline-block rounded-lg bg-blue-500 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-blue-600 hover:bg-blue-700 hover:ring-blue-700">

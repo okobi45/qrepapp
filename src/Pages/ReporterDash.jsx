@@ -16,6 +16,7 @@ const ReporterDash = () => {
     }
 
     const fetchReports = async () => {
+
         try {
             const response = await fetch(`http://localhost:5001/api/reports/my/${user.id}`)
             const data = await response.json()
@@ -44,7 +45,7 @@ const ReporterDash = () => {
 
                 <div className="mb-6 border-b border-gray-200">
                     <nav className="flex justify-center space-x-10">
-                        <button onClick={() => setActiveTab("reports")}
+                        <button onClick={() => { setActiveTab("reports"); fetchReports(); }}
                             className={
                                 `py-3 px-1 text-sm font-medium border-b-2 transition duration-100 md:text-base ${activeTab === "reports"
                                     ? "border-blue-600 text-blue-600"

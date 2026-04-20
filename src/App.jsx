@@ -15,7 +15,6 @@ import Home from './Pages/Home'
 import Error from './Pages/Error'
 import Contact from './Pages/Contact'
 import About from './Pages/About'
-import Tos from './Pages/Tos';
 import Privacy from './Pages/Privacy';
 import Faqs from './Pages/Faqs';
 
@@ -85,7 +84,6 @@ function App() {
         <Route path="/adminpanel" element={<AdminDash />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/tos" element={<Tos />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="*" element={<Error />} />

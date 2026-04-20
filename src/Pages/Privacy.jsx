@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function Privacy() {
     return (
@@ -9,7 +8,7 @@ export default function Privacy() {
                         Privacy Policy
                     </h1>
                     <p className="mb-5 text-base text-gray-500 md:text-lg">
-                        Last updated: 20th Oct 2023
+                        Last updated: 01 April 2026
                     </p>
                 </div>
                 <div className="mx-auto prose">
@@ -24,7 +23,7 @@ export default function Privacy() {
                         Please carefully review the following basic rules that govern your
                         use of the Website. Please note that your use of the Website
                         constitutes your unconditional agreement to follow and be bound by
-                        these Terms and Conditions of Use. If you (the "User") do not agree
+                        these Terms and Conditions of Use. If you the User do not agree
                         to them, do not use the Website, provide any materials to the
                         Website or download any materials from them.
                     </p>
@@ -65,7 +64,7 @@ export default function Privacy() {
 
                     <p>
                         You may not upload or transmit any material that infringes or
-                        misappropriates any person's copyright, patent, trademark, or trade
+                        misappropriates any person copyright, patent, trademark, or trade
                         secret, or disclose via the the Website any information the
                         disclosure of which would constitute a violation of any
                         confidentiality obligations you may have.
@@ -73,7 +72,7 @@ export default function Privacy() {
 
                     <p>
                         You may not upload any viruses, worms, Trojan horses, or other forms
-                        of harmful computer code, nor subject the Website's network or
+                        of harmful computer code, nor subject the website network or
                         servers to unreasonable traffic loads, or otherwise engage in
                         conduct deemed disruptive to the ordinary operation of the Website.
                     </p>
@@ -90,7 +89,7 @@ export default function Privacy() {
                     </p>
 
                     <p>
-                        You are expressly prohibited from compiling and using other Users'
+                        You are expressly prohibited from compiling and using other Users
                         personal information, including addresses, telephone numbers, fax
                         numbers, email addresses or other contact information that may
                         appear on the Website, for the purpose of creating or compiling
@@ -100,11 +99,11 @@ export default function Privacy() {
                     </p>
 
                     <p>
-                        You also are expressly prohibited from distributing Users' personal
+                        You also are expressly prohibited from distributing Users personal
                         information to third-party parties for marketing purposes. The
                         Operators shall deem the compiling of marketing and mailing lists
-                        using Users' personal information, the sending of unsolicited
-                        marketing materials to Users, or the distribution of Users' personal
+                        using Users personal information, the sending of unsolicited
+                        marketing materials to Users, or the distribution of Users personal
                         information to third parties for marketing purposes as a material
                         breach of these Terms and Conditions of Use, and the Operators
                         reserve the right to terminate or suspend your access to and use of
@@ -113,11 +112,11 @@ export default function Privacy() {
                     </p>
 
                     <p>
-                        The Operators note that unauthorized use of Users' personal
+                        The Operators note that unauthorized use of Users personal
                         information in connection with unsolicited marketing correspondence
                         also may constitute violations of various state and federal
                         anti-spam statutes. The Operators reserve the right to report the
-                        abuse of Users' personal information to the appropriate law
+                        abuse of Users personal information to the appropriate law
                         enforcement and government authorities, and the Operators will fully
                         cooperate with any authorities investigating violations of these
                         laws.
@@ -128,7 +127,7 @@ export default function Privacy() {
                     <p>
                         The Operators do not want to receive confidential or proprietary
                         information from you through the Website. Any material, information,
-                        or other communication you transmit or post ("Contributions") to the
+                        or other communication you transmit or post Contributions to the
                         Website will be considered non-confidential.
                     </p>
 
@@ -138,8 +137,8 @@ export default function Privacy() {
                     </p>
 
                     <p>
-                        If you work for a company or at a University, it's likely that
-                        you're not the copyright holder of anything you make, even in your
+                        If you work for a company or at a University, it likely that
+                        you are not the copyright holder of anything you make, even in your
                         free time. Before making contributions to this site, get written
                         permission from your employer.
                     </p>
@@ -166,7 +165,7 @@ export default function Privacy() {
 
                     <p>
                         Information submitted to the Website is governed according to the
-                        Operators’s current Privacy Policy and the stated license of this
+                        Operators current Privacy Policy and the stated license of this
                         website.
                     </p>
 
@@ -202,7 +201,7 @@ export default function Privacy() {
                         connection with the operation of the Website and in the provision of
                         services to you. The Operators cannot and do not assume any
                         responsibility or liability for any information you submit, or your
-                        or third parties’ use or misuse of information transmitted or
+                        or third parties use or misuse of information transmitted or
                         received using website. To learn more about how we protect the
                         privacy of the personal information in your account, please visit
                         our Privacy Policy.
@@ -213,7 +212,7 @@ export default function Privacy() {
                     <p>
                         You agree to defend, indemnify and hold harmless the Operators,
                         agents, vendors or suppliers from and against any and all claims,
-                        damages, costs and expenses, including reasonable attorneys' fees,
+                        damages, costs and expenses, including reasonable attorneys fees,
                         arising from or related to your use or misuse of the Website,
                         including, without limitation, your violation of these Terms and
                         Conditions, the infringement by you, or any other subscriber or user
@@ -242,8 +241,8 @@ export default function Privacy() {
                     <h2 id="8warrantydisclaimer">8. WARRANTY DISCLAIMER</h2>
 
                     <p>
-                        THE WEBSITE AND ASSOCIATED MATERIALS ARE PROVIDED ON AN "AS IS" AND
-                        "AS AVAILABLE" BASIS. TO THE FULL EXTENT PERMISSIBLE BY APPLICABLE
+                        THE WEBSITE AND ASSOCIATED MATERIALS ARE PROVIDED ON AN AS IS AND
+                        AS AVAILABLE BASIS. TO THE FULL EXTENT PERMISSIBLE BY APPLICABLE
                         LAW, THE OPERATORS DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED,
                         INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY
                         AND FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT OF
@@ -304,7 +303,7 @@ export default function Privacy() {
                     </p>
 
                     <p>
-                        THE OPERATORS'S TOTAL CUMULATIVE LIABILITY FOR ANY AND ALL CLAIMS IN
+                        THE OPERATORS TOTAL CUMULATIVE LIABILITY FOR ANY AND ALL CLAIMS IN
                         CONNECTION WITH THE WEBSITE WILL NOT EXCEED FIVE U.S. DOLLARS
                         ($5.00). USER AGREES AND ACKNOWLEDGES THAT THE FOREGOING LIMITATIONS
                         ON LIABILITY ARE AN ESSENTIAL BASIS OF THE BARGAIN AND THAT THE
@@ -323,7 +322,7 @@ export default function Privacy() {
                         jurisdiction. The provisions of the UN Convention on Contracts for
                         the International Sale of Goods will not apply to these Terms. A
                         party may give notice to the other party only in writing at that
-                        party's principal place of business, attention of that party's
+                        party principal place of business, attention of that party
                         principal legal officer, or at such other address or by such other
                         method as the party shall specify in writing. Notice shall be deemed
                         given upon personal delivery or facsimile, or, if sent by certified
@@ -339,9 +338,9 @@ export default function Privacy() {
                         describe the scope or extent of such section. The failure of the
                         Operators to act with respect to a breach of this Agreement by you
                         or others does not constitute a waiver and shall not limit the
-                        Operators' rights with respect to such breach or any subsequent
+                        Operator rights with respect to such breach or any subsequent
                         breaches. Any action or proceeding arising out of or related to this
-                        Agreement or User's use of the Website must be brought in the courts
+                        Agreement or User use of the Website must be brought in the courts
                         of Belgium, and you consent to the exclusive personal jurisdiction
                         and venue of such courts. Any cause of action you may have with
                         respect to your use of the Website must be commenced within one (1)
