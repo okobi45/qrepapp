@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const reportSchema = new mongoose.Schema({
-    CrimeType: {
+    crimeType: {
         type: String,
         required: true
     },
