@@ -1,26 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function AdminDash() {
 
     const [activeTab, setActiveTab] = useState("reports")
-
-    const [reports, setReports] = useState([
-        { id: 1, crimeType: "theft", incidentDate: "2026-04-09", county: "dublin", locationDesc: "opposite train station", incidentDesc: "wallet stolen from back pocket while boarding the bus", dateSubmitted: "2026-04-10", status: "Pending", reporter: "Prince Eigbe" },
-        { id: 2, crimeType: "assault", incidentDate: "2026-04-10", county: "cork", locationDesc: "near second gate", incidentDesc: "Old lady push off the sidewalk during rush hour morning", dateSubmitted: "2026-04-10", status: "Under Review", reporter: "Peter Lacey" },
-        { id: 3, crimeType: "vandalism", incidentDate: "2026-04-11", county: "limerick", locationDesc: "main street car park", incidentDesc: "Graffiti sprayed on the wall and street light smashed", dateSubmitted: "2026-04-10", status: "Resolved", reporter: "Sera Kiran" },
-    ])
-
-    const [users, setUsers] = useState([
-        { id: 1, name: "Prince Eigbe", email: "prince@swr.com", role: "Reporter" },
-        { id: 2, name: "Peter Lacey", email: "peter@swr.com", role: "Reporter" },
-        { id: 3, name: "Admin one", email: "Admin@swr.com", role: "Admin" },
-    ])
-
+    const [reports, setReports] = useState([])
+    const [users, setUsers] = useState([])
     const [search, setSearch] = useState("")
-
     const [filter, setFilter] = useState("All")
-
-    const [newUser, setNewUser] = useState({ name: "", email: "", password: "", role: "Reporter" })
+    const [newUser, setNewUser] = useState({ name: "", email: "", password: "", role: "reporter" })
 
 
     const statusColor = (status) => {
@@ -30,27 +17,85 @@ function AdminDash() {
         return "bg-gray-100 text-gray-800"
     }
 
-    const handleStatusChange = (reportId, newStatus) => {
-        setReports(reports.map(report => report.id === reportId ? { ...report, status: newStatus } : report))
+    const fetchReports = async () => {
+        try {
+            const response = await fetch("http://localhost:5001/api/reports")
+            const data = await response.json()
+            setReports(data)
+        } catch (error) {
+            console.error("Failed to fetch reports:", error)
+        }
     }
 
-    const handleDeleteReport = (reportId) => {
+    const fetchUsers = async () => {
+        try {
+            const response = await fetch("http://localhost:5001/api/users")
+            const data = await response.json()
+            setUsers(data)
+        } catch (error) {
+            console.error("Failed to fetch users:", error)
+        }
+    }
+
+    useEffect(() => {
+        fetchReports()
+        fetchUsers()
+    }, [])
+
+    const handleStatusChange = async (reportId, newStatus) => {
+        try {
+            await fetch(`http://localhost:5001/api/reports/${reportId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: newStatus })
+            })
+            fetchReports()
+        } catch (error) {
+            console.error("Failed to update status:", error)
+        }
+    }
+
+    const handleDeleteReport = async (reportId) => {
         if (window.confirm("Delete this report? This action cannot be undone.")) {
-            setReports(reports.filter(report => report.id !== reportId))
+            try {
+                await fetch(`http://localhost:5001/api/reports/${reportId}`, {
+                    method: "DELETE"
+                })
+                fetchReports()
+            } catch (error) {
+                console.error("Failed to delete report:", error)
+            }
         }
     }
 
-    const handleDeleteUser = (userId) => {
+    const handleDeleteUser = async (userId) => {
         if (window.confirm("Delete this user? This action cannot be undone.")) {
-            setUsers(users.filter(user => user.id !== userId))
+            try {
+                await fetch(`http://localhost:5001/api/users/${userId}`, {
+                    method: "DELETE"
+                })
+                fetchUsers()
+            } catch (error) {
+                console.error("Failed to delete user:", error)
+            }
         }
     }
 
-    const handleAddUser = (e) => {
+    const handleAddUser = async (e) => {
         e.preventDefault()
-        const newId = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1
-        setUsers([...users, { id: newId, name: newUser.name, email: newUser.email, role: newUser.role }])
-        setNewUser({ name: "", email: "", role: "Reporter" })
+        try {
+            const response = await fetch("http://localhost:5001/api/users", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newUser)
+            })
+            if (response.ok) {
+                setNewUser({ name: "", email: "", password: "", role: "reporter" })
+                fetchUsers()
+            }
+        } catch (error) {
+            console.error("Failed to add user:", error)
+        }
     }
 
     const filteredR = reports.filter(report => {
@@ -58,7 +103,6 @@ function AdminDash() {
         if (filter === "All") return true
         return report.status === filter
     })
-
     return (
         <div className="bg-gray-50 min-h-screen">
             <div className="mx-auto max-w-screen-xl px-4 py-8 md:px-8 md:py-12">
@@ -133,18 +177,18 @@ function AdminDash() {
                                     </thead>
                                     <tbody>
                                         {filteredR.map((report) => (
-                                            <tr key={report.id} className="border-b">
-                                                <td>{report.reporter}</td>
+                                            <tr key={report._id} className="border-b">
+                                                <td>{report.reporter?.name || "Unknown"}</td>
                                                 <td>{report.crimeType}</td>
-                                                <td>{report.incidentDate}</td>
+                                                <td>{new Date(report.incidentDate).toLocaleDateString()}</td>
                                                 <td>{report.county}</td>
                                                 <td>{report.locationDesc}</td>
                                                 <td>{report.incidentDesc}</td>
-                                                <td>{report.dateSubmitted}</td>
+                                                <td>{new Date(report.createdAt).toLocaleDateString()}</td>
                                                 <td>
                                                     <select
                                                         value={report.status}
-                                                        onChange={(e) => handleStatusChange(report.id, e.target.value)}
+                                                        onChange={(e) => handleStatusChange(report._id, e.target.value)}
                                                         className={`rounded-full px-3 py-1 text-xs font-medium border-0 ${statusColor(report.status)}`}
                                                     >
                                                         <option value="Pending">Pending</option>
@@ -153,7 +197,7 @@ function AdminDash() {
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <button onClick={() => handleDeleteReport(report.id)}
+                                                    <button onClick={() => handleDeleteReport(report._id)}
                                                         className="rounded bg-red-100 px-3 py-1 text-xs font-medium text-red-800 hover:bg-red-200">
                                                         Delete
                                                     </button>
@@ -207,8 +251,8 @@ function AdminDash() {
                                             onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
                                             className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                                         >
-                                            <option value="Reporter">Reporter</option>
-                                            <option value="Admin">Admin</option>
+                                            <option value="reporter">Reporter</option>
+                                            <option value="admin">Admin</option>
                                         </select>
                                         <button type="submit"
                                             className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">
@@ -230,16 +274,16 @@ function AdminDash() {
                                         <tbody>
                                             {
                                                 users.map((user) => (
-                                                    <tr key={user.id} className="border-b">
+                                                    <tr key={user._id} className="border-b">
                                                         <td className="px-4 py-3">{user.name}</td>
                                                         <td className="px-4 py-3">{user.email}</td>
                                                         <td className="px-4 py-3">
-                                                            <span className={`rounded-full px-3 py-1 text-xs font-medium ${user.role === "Admin" ? "bg-purple-100 text-purple-800" : "bg-gray-100 text-gray-800"}`}>
+                                                            <span className={`rounded-full px-3 py-1 text-xs font-medium ${user.role === "admin" ? "bg-purple-100 text-purple-800" : "bg-gray-100 text-gray-800"}`}>
                                                                 {user.role}
                                                             </span>
                                                         </td>
                                                         <td className="px-4 py-3">
-                                                            <button onClick={() => handleDeleteUser(user.id)}
+                                                            <button onClick={() => handleDeleteUser(user._id)}
                                                                 className="rounded bg-red-100 px-3 py-1 text-xs font-medium text-red-800 hover:bg-red-200">
                                                                 Delete
                                                             </button>

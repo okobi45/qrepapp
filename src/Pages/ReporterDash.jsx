@@ -1,14 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import IncidentForm from './IncidentForm'
 
 const ReporterDash = () => {
 
     const [activeTab, setActiveTab] = useState('reports');
-    const [reports, setReports] = useState([
-        { id: 1, crimeType: "theft", incidentDate: "2026-04-09", county: "dublin", locationDesc: "opposite train station", incidentDesc: "wallet stolen from back pocket while boarding the bus", dateSubmitted: "2026-04-10", status: "Pending" },
-        { id: 2, crimeType: "assault", incidentDate: "2026-04-10", county: "cork", locationDesc: "near second gate", incidentDesc: "Old lady push off the sidewalk during rush hour morning", dateSubmitted: "2026-04-10", status: "Under Review" },
-        { id: 3, crimeType: "vandalism", incidentDate: "2026-04-11", county: "limerick", locationDesc: "main street car park", incidentDesc: "Graffiti sprayed on the wall and street light smashed", dateSubmitted: "2026-04-10", status: "Resolved" },
-    ]);
+    const [reports, setReports] = useState([]);
+
+    const user = JSON.parse(localStorage.getItem("user"))
 
     const statusColor = (status) => {
         if (status === "Pending") return "bg-yellow-100 text-yellow-800"
@@ -17,13 +15,27 @@ const ReporterDash = () => {
         return "bg-gray-100 text-gray-800"
     }
 
+    const fetchReports = async () => {
+        try {
+            const response = await fetch(`http://localhost:5001/api/reports/my/${user.id}`)
+            const data = await response.json()
+            setReports(data)
+        } catch (error) {
+            console.error("Failed to fetch reports:", error)
+        }
+    }
+
+    useEffect(() => {
+        fetchReports()
+    }, [])
+
     return (
         <div className="bg-gray-50 min-h-screen">
             <div className="mx-auto max-w-screen-xl px-4 py-8 md:px-8 md:py-12">
 
                 <div className="mb-10 text-center">
                     <h1 className="mb-2 text-2xl font-bold text-gray-800 md:text-3xl">
-                        Welcome, Reporter
+                        Welcome, {user ? user.name : "Reporter"}
                     </h1>
                     <p className="text-gray-500 md:text-lg">
                         Manage your crime reports and submit new incidents.
@@ -70,10 +82,10 @@ const ReporterDash = () => {
                                     </thead>
                                     <tbody>
                                         {reports.map((report) => (
-                                            <tr key={report.id} className="border-b">
-                                                <td className="px-4 py-3">{report.dateSubmitted}</td>
+                                            <tr key={report._id} className="border-b">
+                                                <td className="px-4 py-3">{new Date(report.createdAt).toLocaleDateString()}</td>
                                                 <td className="px-4 py-3">{report.crimeType}</td>
-                                                <td className="px-4 py-3">{report.incidentDate}</td>
+                                                <td className="px-4 py-3">{new Date(report.incidentDate).toLocaleDateString()}</td>
                                                 <td className="px-4 py-3">{report.county}</td>
                                                 <td className="px-4 py-3">{report.locationDesc}</td>
                                                 <td className="px-4 py-3">{report.incidentDesc}</td>
@@ -88,7 +100,9 @@ const ReporterDash = () => {
 
                                 </table>
                             </div>
-                            <p className="mt-4 text-xs text-gray-400">Sample data created to test layout </p>
+                            {reports.length === 0 && (
+                                <p className="mt-4 text-center text-sm text-gray-500">No reports found. Submit your first report.</p>
+                            )}
                         </div>
                     )}
                     {activeTab === "form" && <IncidentForm />}
