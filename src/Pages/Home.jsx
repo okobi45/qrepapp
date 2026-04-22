@@ -13,7 +13,7 @@ function Home() {
                             </span>
                         </h1>
                         <p className="mt-5 sm:mt-10 lg:w-10/12 text-gray-600 dark:text-gray-500 font-normal text-center text-xl">
-                            A verified, community managed reporting platform | Building a High trust Community and Soiety one at a time.
+                            A verified, community managed reporting platform | Building a High trust Community and Society one at a time.
                         </p>
                     </div>
                     {/* <div className="flex w-11/12 md:w-8/12 xl:w-6/12">
