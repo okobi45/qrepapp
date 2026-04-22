@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const argon2 = require("argon2");
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -10,7 +11,7 @@ const userSchema = new mongoose.Schema({
         required: [true, "Email is required"],
         unique: true,
         lowercase: true,
-        trime: true
+        trim: true
     }, password: {
         type: String,
         required: [true, "password is required"],
@@ -22,5 +23,16 @@ const userSchema = new mongoose.Schema({
     }
 },
     { timestamps: true });
+
+userSchema.pre("save", async function (next) {
+    if (this.isModified("password")) {
+        this.password = await argon2.hash(this.password)
+    }
+    next()
+})
+
+userSchema.methods.comparePassword = async function (enteredPassword) {
+    return argon2.verify(this.password, enteredPassword)
+}
 
 module.exports = mongoose.model("User", userSchema);
