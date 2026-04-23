@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import IncidentForm from './IncidentForm'
 
-const ReporterDash = () => {
+function ReporterDash() {
 
-    const [activeTab, setActiveTab] = useState('reports');
-    const [reports, setReports] = useState([]);
+    const [activeTab, setActiveTab] = useState('reports')
+    const [reports, setReports] = useState([])
 
     const user = JSON.parse(localStorage.getItem("user"))
 
@@ -16,11 +16,16 @@ const ReporterDash = () => {
     }
 
     const fetchReports = async () => {
-
         try {
-            const response = await fetch(`http://localhost:5001/api/reports/my/${user.id}`)
+            const response = await fetch(`http://localhost:5002/api/reports/my/${user.id}`, {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
             const data = await response.json()
-            setReports(data)
+            if (Array.isArray(data)) {
+                setReports(data)
+            }
         } catch (error) {
             console.error("Failed to fetch reports:", error)
         }
@@ -98,7 +103,6 @@ const ReporterDash = () => {
                                             </tr>
                                         ))}
                                     </tbody>
-
                                 </table>
                             </div>
                             {reports.length === 0 && (

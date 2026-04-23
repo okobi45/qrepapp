@@ -19,7 +19,9 @@ function AdminDash() {
 
     const fetchReports = async () => {
         try {
-            const response = await fetch("http://localhost:5001/api/reports")
+            const response = await fetch("http://localhost:5002/api/reports", {
+                headers: { "Authorization": "Bearer " + localStorage.getItem("token") }
+            })
             const data = await response.json()
             setReports(data)
         } catch (error) {
@@ -29,7 +31,9 @@ function AdminDash() {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch("http://localhost:5001/api/users")
+            const response = await fetch("http://localhost:5002/api/users", {
+                headers: { "Authorization": "Bearer " + localStorage.getItem("token") }
+            })
             const data = await response.json()
             setUsers(data)
         } catch (error) {
@@ -44,9 +48,12 @@ function AdminDash() {
 
     const handleStatusChange = async (reportId, newStatus) => {
         try {
-            await fetch(`http://localhost:5001/api/reports/${reportId}`, {
+            await fetch(`http://localhost:5002/api/reports/${reportId}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
                 body: JSON.stringify({ status: newStatus })
             })
             fetchReports()
@@ -58,8 +65,9 @@ function AdminDash() {
     const handleDeleteReport = async (reportId) => {
         if (window.confirm("Delete this report? This action cannot be undone.")) {
             try {
-                await fetch(`http://localhost:5001/api/reports/${reportId}`, {
-                    method: "DELETE"
+                await fetch(`http://localhost:5002/api/reports/${reportId}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": "Bearer " + localStorage.getItem("token") }
                 })
                 fetchReports()
             } catch (error) {
@@ -71,8 +79,9 @@ function AdminDash() {
     const handleDeleteUser = async (userId) => {
         if (window.confirm("Delete this user? This action cannot be undone.")) {
             try {
-                await fetch(`http://localhost:5001/api/users/${userId}`, {
-                    method: "DELETE"
+                await fetch(`http://localhost:5002/api/users/${userId}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": "Bearer " + localStorage.getItem("token") }
                 })
                 fetchUsers()
             } catch (error) {
@@ -84,9 +93,12 @@ function AdminDash() {
     const handleAddUser = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch("http://localhost:5001/api/users", {
+            const response = await fetch("http://localhost:5002/api/users", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
                 body: JSON.stringify(newUser)
             })
             if (response.ok) {
@@ -128,7 +140,7 @@ function AdminDash() {
                                     ? "border-blue-600 text-blue-600"
                                     : "border-transparent text-gray-500 hover:text-gray-700"}`
                             }>
-                            User
+                            Users
                         </button>
                     </nav>
                 </div>
@@ -170,7 +182,7 @@ function AdminDash() {
                                             <th className="px-4 py-3">County</th>
                                             <th className="px-4 py-3">Location</th>
                                             <th className="px-4 py-3">Incident Description</th>
-                                            <th className="px-4 py-3">Date submitted</th>
+                                            <th className="px-4 py-3">Date Submitted</th>
                                             <th className="px-4 py-3">Status</th>
                                             <th className="px-4 py-3">Action</th>
                                         </tr>
@@ -214,94 +226,87 @@ function AdminDash() {
                         </div>
                     )}
 
-                    {
-                        activeTab === "users" && (
-                            <div className="p-6 md:p-8">
-                                <h2 className="mb-4 text-lg font-semibold text-gray-800 md:text-xl">Users</h2>
+                    {activeTab === "users" && (
+                        <div className="p-6 md:p-8">
+                            <h2 className="mb-4 text-lg font-semibold text-gray-800 md:text-xl">Users</h2>
 
-                                <form onSubmit={handleAddUser} className="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
-                                    <h3 className="mb-3 text-sm font-medium text-gray-800">Add New User</h3>
-                                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-                                        <input
-                                            type="text"
-                                            value={newUser.name}
-                                            onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-                                            placeholder="Full Name" required
-                                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
-                                        />
-
-                                        <input
-                                            type="email"
-                                            value={newUser.email}
-                                            onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                                            placeholder="Email" required
-                                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
-                                        />
-
-                                        <input
-                                            type="password"
-                                            value={newUser.password}
-                                            onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
-                                            placeholder="Password" required
-                                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
-                                        />
-
-                                        <select
-                                            value={newUser.role}
-                                            onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
-                                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
-                                        >
-                                            <option value="reporter">Reporter</option>
-                                            <option value="admin">Admin</option>
-                                        </select>
-                                        <button type="submit"
-                                            className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">
-                                            Add User
-                                        </button>
-                                    </div>
-                                </form>
-
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-left text-sm text-gray-700">
-                                        <thead className="bg-gray-50 text-xs uppercase text-gray-600">
-                                            <tr>
-                                                <th className="px-4 py-3">Name</th>
-                                                <th className="px-4 py-3">Email</th>
-                                                <th className="px-4 py-3">Role</th>
-                                                <th className="px-4 py-3">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                users.map((user) => (
-                                                    <tr key={user._id} className="border-b">
-                                                        <td className="px-4 py-3">{user.name}</td>
-                                                        <td className="px-4 py-3">{user.email}</td>
-                                                        <td className="px-4 py-3">
-                                                            <span className={`rounded-full px-3 py-1 text-xs font-medium ${user.role === "admin" ? "bg-purple-100 text-purple-800" : "bg-gray-100 text-gray-800"}`}>
-                                                                {user.role}
-                                                            </span>
-                                                        </td>
-                                                        <td className="px-4 py-3">
-                                                            <button onClick={() => handleDeleteUser(user._id)}
-                                                                className="rounded bg-red-100 px-3 py-1 text-xs font-medium text-red-800 hover:bg-red-200">
-                                                                Delete
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                        </tbody>
-                                    </table>
+                            <form onSubmit={handleAddUser} className="mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+                                <h3 className="mb-3 text-sm font-medium text-gray-800">Add New User</h3>
+                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                                    <input
+                                        type="text"
+                                        value={newUser.name}
+                                        onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                                        placeholder="Full Name" required
+                                        className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                                    />
+                                    <input
+                                        type="email"
+                                        value={newUser.email}
+                                        onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                                        placeholder="Email" required
+                                        className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                                    />
+                                    <input
+                                        type="password"
+                                        value={newUser.password}
+                                        onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                                        placeholder="Password" required
+                                        className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                                    />
+                                    <select
+                                        value={newUser.role}
+                                        onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
+                                        className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                                    >
+                                        <option value="reporter">Reporter</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                    <button type="submit"
+                                        className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">
+                                        Add User
+                                    </button>
                                 </div>
+                            </form>
+
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left text-sm text-gray-700">
+                                    <thead className="bg-gray-50 text-xs uppercase text-gray-600">
+                                        <tr>
+                                            <th className="px-4 py-3">Name</th>
+                                            <th className="px-4 py-3">Email</th>
+                                            <th className="px-4 py-3">Role</th>
+                                            <th className="px-4 py-3">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {users.map((user) => (
+                                            <tr key={user._id} className="border-b">
+                                                <td className="px-4 py-3">{user.name}</td>
+                                                <td className="px-4 py-3">{user.email}</td>
+                                                <td className="px-4 py-3">
+                                                    <span className={`rounded-full px-3 py-1 text-xs font-medium ${user.role === "admin" ? "bg-purple-100 text-purple-800" : "bg-gray-100 text-gray-800"}`}>
+                                                        {user.role}
+                                                    </span>
+                                                </td>
+                                                <td className="px-4 py-3">
+                                                    <button onClick={() => handleDeleteUser(user._id)}
+                                                        className="rounded bg-red-100 px-3 py-1 text-xs font-medium text-red-800 hover:bg-red-200">
+                                                        Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
-                        )}
+                        </div>
+                    )}
+
                 </div>
             </div>
-
         </div>
-
     )
 }
-
 
 export default AdminDash

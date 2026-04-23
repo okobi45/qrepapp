@@ -13,7 +13,7 @@ function Login() {
         setError("")
 
         try {
-            const response = await fetch("http://localhost:5001/api/auth/login", {
+            const response = await fetch("http://localhost:5002/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
@@ -26,6 +26,7 @@ function Login() {
             }
 
             localStorage.setItem("user", JSON.stringify(data.user))
+            localStorage.setItem("token", data.token)
 
             if (data.user.role === "admin") {
                 navigate("/adminpanel")

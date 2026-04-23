@@ -23,16 +23,19 @@ function IncidentForm() {
         }
 
         try {
-            const response = await fetch("http://localhost:5001/api/reports", {
+            const response = await fetch("http://localhost:5002/api/reports", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+
                 body: JSON.stringify({
                     crimeType: crimeType.toLowerCase(),
                     incidentDate,
                     county: county.toLowerCase(),
                     locationDesc,
-                    incidentDesc,
-                    reporter: user.id
+                    incidentDesc
                 })
             })
 

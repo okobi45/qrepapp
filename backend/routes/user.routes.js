@@ -1,63 +1,61 @@
 const express = require("express")
-const { body, validationResult } = require("express-validator")
 const User = require("../models/User")
+const protect = require("../middleware/auth.middleware")
 
 const router = express.Router()
 
-// get all users
-router.get("/", async (req, res) => {
+router.get("/", protect, async (req, res) => {
     try {
         const users = await User.find().select("-password")
-
         res.status(200).json(users)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
 })
 
-// create a user (admin creates reporter or admin)
-router.post("/",
-    body("name").trim().notEmpty().withMessage("Name is required"),
-    body("email").isEmail().withMessage("Valid email is required").normalizeEmail(),
-    body("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters"),
-    body("role").isIn(["admin", "reporter"]).withMessage("Role must be admin or reporter"),
+router.post("/", protect, async (req, res) => {
+    try {
+        const { name, email, password, role } = req.body
 
-    async (req, res) => {
-        const errors = validationResult(req)
-        if (errors.isEmpty() === false) {
-            return res.status(400).json({ message: errors.array()[0].msg })
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "Name, email and password are required" })
         }
 
-        try {
-            const { name, email, password, role } = req.body
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters" })
+        }
 
-            const existingUser = await User.findOne({ email })
-            if (existingUser) {
-                return res.status(400).json({ message: "User already exists" })
+        const allowed = ["admin", "reporter"]
+        if (allowed.includes(role) === false) {
+            return res.status(400).json({ message: "Role must be admin or reporter" })
+        }
+
+        const existingUser = await User.findOne({ email })
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists" })
+        }
+
+        const user = await User.create({ name, email, password, role })
+
+        res.status(201).json({
+            message: "User created",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
             }
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
 
-            const user = await User.create({ name, email, password, role })
-
-            res.status(201).json({
-                message: "User created",
-                user: {
-                    id: user._id,
-                    name: user.name,
-                    email: user.email,
-                    role: user.role
-                }
-            })
-        } catch (error) {
-            res.status(500).json({ message: error.message })
-        }
-    })
-
-// delete a user
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", protect, async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id)
 
-        if (!user) {
+        if (user === null) {
             return res.status(404).json({ message: "User not found" })
         }
 
