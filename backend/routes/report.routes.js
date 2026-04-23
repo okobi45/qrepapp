@@ -1,20 +1,33 @@
 const express = require("express")
+const { body, validationResult } = require("express-validator")
 const Report = require("../models/Report")
 
 const router = express.Router()
 
 // create a report
-router.post("/", async (req, res) => {
-    try {
-        const { crimeType, incidentDate, county, locationDesc, incidentDesc, reporter } = req.body
+router.post("/",
+    body("crimeType").trim().notEmpty().withMessage("Crime type is required"),
+    body("incidentDate").notEmpty().withMessage("Incident date is required"),
+    body("county").trim().notEmpty().withMessage("County is required"),
+    body("locationDesc").trim().notEmpty().withMessage("Location description is required"),
+    body("incidentDesc").trim().notEmpty().withMessage("Incident description is required"),
+    body("reporter").notEmpty().withMessage("Reporter is required"),
+    async (req, res) => {
+        const errors = validationResult(req)
+        if (errors.isEmpty() === false) {
+            return res.status(400).json({ message: errors.array()[0].msg })
+        }
 
-        const report = await Report.create({ crimeType, incidentDate, county, locationDesc, incidentDesc, reporter })
+        try {
+            const { crimeType, incidentDate, county, locationDesc, incidentDesc, reporter } = req.body
 
-        res.status(201).json({ message: "Report created", report })
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-})
+            const report = await Report.create({ crimeType, incidentDate, county, locationDesc, incidentDesc, reporter })
+
+            res.status(201).json({ message: "Report created", report })
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }
+    })
 
 // get all reports (admin)
 router.get("/", async (req, res) => {

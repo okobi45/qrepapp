@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
+const mongoSanitize = require("express-mongo-sanitize")
 const connectDB = require("./config/db")
 const authRoutes = require("./routes/auth.routes")
 const reportRoutes = require("./routes/report.routes")
@@ -11,8 +12,12 @@ const app = express()
 const PORT = process.env.PORT || 5000
 
 app.use(helmet())
-app.use(cors())
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true
+}))
 app.use(express.json())
+app.use(mongoSanitize)
 
 app.get("/", (req, res) => {
     res.json({ message: "SWR(secure web report) backend is running" })
