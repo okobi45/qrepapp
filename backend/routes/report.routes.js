@@ -12,6 +12,26 @@ router.post("/", protect, async (req, res) => {
             return res.status(400).json({ message: "All fields are required" })
         }
 
+        if (crimeType.length > 100) {
+            return res.status(400).json({ message: "Crime type must be under 100 characters" })
+        }
+
+        if (isNaN(Date.parse(incidentDate))) {
+            return res.status(400).json({ message: "Invalid date format" })
+        }
+
+        if (county.length > 100) {
+            return res.status(400).json({ message: "County must be under 100 characters" })
+        }
+
+        if (locationDesc.length > 300) {
+            return res.status(400).json({ message: "Location description must be under 300 characters" })
+        }
+
+        if (incidentDesc.length > 1000) {
+            return res.status(400).json({ message: "Incident description must be under 1000 characters" })
+        }
+
         const report = await Report.create({
             crimeType, incidentDate, county, locationDesc, incidentDesc,
             reporter: req.user._id

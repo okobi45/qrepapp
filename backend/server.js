@@ -7,7 +7,7 @@ const connectDB = require("./config/db")
 const authRoutes = require("./routes/auth.routes")
 const reportRoutes = require("./routes/report.routes")
 const userRoutes = require("./routes/user.routes")
-const sanitize = require("./middleware/sanitize.middleware")
+const mongoSanitize = require("express-mongo-sanitize")
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -25,7 +25,7 @@ app.use(cors({
     credentials: true
 }))
 app.use(express.json())
-app.use(sanitize)
+app.use(mongoSanitize())
 app.use(limiter)
 
 app.get("/", (req, res) => {
