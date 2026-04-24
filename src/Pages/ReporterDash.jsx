@@ -17,7 +17,7 @@ function ReporterDash() {
 
     const fetchReports = async () => {
         try {
-            const response = await fetch(`http://localhost:5002/api/reports/my/${user.id}`, {
+            const response = await fetch(`http://localhost:5002/api/reports/my`, {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem("token")
                 }

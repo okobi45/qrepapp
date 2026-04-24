@@ -32,9 +32,9 @@ router.get("/", protect, async (req, res) => {
     }
 })
 
-router.get("/my/:reporterId", protect, async (req, res) => {
+router.get("/my", protect, async (req, res) => {
     try {
-        const reports = await Report.find({ reporter: req.params.reporterId })
+        const reports = await Report.find({ reporter: req.user._id })
         res.status(200).json(reports)
     } catch (error) {
         res.status(500).json({ message: error.message })
