@@ -21,8 +21,20 @@ router.post("/", protect, async (req, res) => {
             return res.status(400).json({ message: "Name, email and password are required" })
         }
 
-        if (password.length < 6) {
-            return res.status(400).json({ message: "Password must be at least 6 characters" })
+        if (name.length > 100) {
+            return res.status(400).json({ message: "Name must be under 100 characters" })
+        }
+
+        if (email.length > 254) {
+            return res.status(400).json({ message: "Email must be under 254 characters" })
+        }
+
+        if (email.includes("@") === false || email.includes(".") === false) {
+            return res.status(400).json({ message: "Invalid email format" })
+        }
+
+        if (password.length < 6 || password.length > 128) {
+            return res.status(400).json({ message: "Password must be between 6 and 128 characters" })
         }
 
         const allowed = ["admin", "reporter"]
