@@ -1,8 +1,7 @@
-# React + Vite
+# SWR Secure Web Report
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a community based crime reporting application built with MERN stack.
 
-Currently, two official plugins are available:
+# SWR - Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+SWR (Secure Web Report) enables registered community members or users to file an incident report after registration and also allows users to track updates on the the incident report.
