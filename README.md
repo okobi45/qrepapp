@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-# SWR Secure Web Report
-=======
 # SWR SECURE WEB REPORT
 
 This is a secure web report for community based reporting built using MERN stack.
@@ -55,6 +52,7 @@ SWR was previously called Qrep app, which was strictly frontend based with no ba
 
 # SWR Repository Structure
 
+```
 qrepapp/
 ├── .eslintrc.cjs
 ├── .gitignore
@@ -104,6 +102,8 @@ qrepapp/
 ├── tailwind.config.js
 └── vite.config.js
 
+```
+
 # SWR Installation guide
 
 ## Prerequisite
@@ -112,19 +112,27 @@ qrepapp/
 - Git
 
 ### 1. Clone the Repo
+```
     git clone https://github.com/okobi45/qrepapp.git
 
+```
 ### 2. Check branch and switch to "secure-version" branch
-    - git branch
-    -git checkout secure-version
+```
+    git branch
+    git checkout secure-version
+```
 
 ### 3. For Frontend 
-    - npm install
+```
+    npm install
+```
 
 ### 4. For Backend 
-    - cd backend
+```
+    cd backend
     npm install
+```
 
 
 
-   
+
