@@ -34,7 +34,6 @@ SWR was previously called Qrep app, which was strictly frontend based with no ba
         The navbar shows (Home, About Us, Contact Us, Login, Register) for users not logged in but for logged in users it shows (Home, About Us, Contact Us, Dashboard, logout).  
 
 # SWR security features (secure-version branch)
-# SWR Security Features
 
 1. Argon2id Password Hashing
 2. IDOR Prevention
