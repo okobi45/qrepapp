@@ -133,6 +133,62 @@ qrepapp/
     npm install
 ```
 
+### 5. For Backend 
+Create your `.env` file in the `backend/` folder
+and setup the following:
+```
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_jwt_secret_key
+PORT=5002
+CLIENT_URL=http://localhost:3001
+```
+
+### 6. Start the backend
+```bash
+cd backend
+npm run dev
+```
+
+### 7. Start the frontend on a different terminal
+```bash
+npm run dev
+```
+
+### 8. Open your browser
+enter this: http://localhost:3001
+
+### As a Reporter
+1. Register with your name, email, password and confirm your password
+2. Login with your email and password
+3. Click "Submit New Report" to report a crime incident
+4. View your submitted reports under "My Reports"
+
+### As an Admin
+1. Login with admin email and password
+2. View all reports for all reporters in the Reports section
+3. Search reports by crime type or county
+4. Filter reports by status (Pending, Under Review, Resolved)
+5. Update report status or delete reports
+6. Manage users in the Users section
+
+## Contributions and References
+
+Update to the frontend only Qrep App and All backend code and database integration were developed by me.
+
+### References
+- [OWASP Top 10:2025](https://owasp.org/Top10/2025/)
+- [OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
+- [Argon2 — Password Hashing Competition Winner](https://www.npmjs.com/package/argon2)
+- [Helmet.js](https://helmetjs.github.io/)
+- [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize)
+- [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
+- [MongoDB Atlas](https://www.mongodb.com/docs/atlas/)
+- [React](https://react.dev/)
+- [Express.js](https://expressjs.com/)
+- [Vite](https://vitejs.dev/)
 
 
+## License
+
+This project was developed as part Secure Web Development project.
 
