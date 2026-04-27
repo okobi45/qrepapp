@@ -6,7 +6,7 @@ This is a secure web report for community based reporting built using MERN stack
 
 SWR (Secure Web Report) is a community based crime reporting appplication which allows community members to report crime incidents on the application. The app is built to only allow only verified and registered users to access main features of the application.
 
-#SWR Background 
+# SWR Background 
 
 SWR was previously called Qrep app, which was strictly frontend based with no backend or server. The app was built for anonymous crime reporting. The project has been redesigned into community styled web app where verified and registered members will have access.
 
@@ -34,14 +34,15 @@ SWR was previously called Qrep app, which was strictly frontend based with no ba
         The navbar shows (Home, About Us, Contact Us, Login, Register) for users not logged in but for logged in users it shows (Home, About Us, Contact Us, Dashboard, logout).  
 
 # SWR security features (secure-version branch)
+# SWR Security Features
 
-1. Argon2id Password Hashing 
-2. IDOR Prevention 
-3​. NoSQL Injection Prevention 
-4. Input Validation 
-5. Helmet Security Headers 
-6. CORS restricted to CLIENT_URL only
-7.​ Dependency Vulnerability Management 
+1. Argon2id Password Hashing
+2. IDOR Prevention
+3. NoSQL Injection Prevention
+4. Input Validation
+5. Helmet Security Headers
+6. CORS Restricted to CLIENT_URL Only
+7. Dependency Vulnerability Management
 
 # SWR Vulnerabilities
  
